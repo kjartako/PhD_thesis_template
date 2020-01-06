@@ -1,0 +1,220 @@
+% ©2020 Kjartan Kloster Osmundsen
+%%%%%%%%%%%%%%%%%%%%%%% PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{geometry} % Margins
+\usepackage[T1]{fontenc} % Font encoding
+\usepackage[utf8]{inputenc} % Input encoding 
+\usepackage{amsmath} % Equations
+\usepackage{amssymb} % Math symbols
+\usepackage[authoryear]{natbib} % References
+\usepackage{newtxtext,newtxmath} % Text font, Times New Roman-like
+\usepackage[scaled=.90]{helvet}% Helvetica, used as proxy for Arial
+\usepackage{tocloft} % Table of contents (TOC)
+\usepackage[parfill]{parskip} % New line between paragraphs, no indentation 
+\usepackage{url} % URL
+\usepackage{xcolor} % Color for URL
+\usepackage[normalem]{ulem} % Underline for URL
+\usepackage{textcomp} % Good-looking copyright symbol
+\usepackage[final]{pdfpages} % Import pdf files (the papers)
+\usepackage{titlesec} % Style chapter and section titles
+\usepackage{fancyhdr} % Options for header text and page numbering
+
+%%%%%%%%%%%%%%%%%%%%%%% MARGINS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{plain} % Set page style to plain
+\geometry{a4paper,left=44mm,right=44mm,top=52mm,bottom=58mm,headsep=18pt,headheight=14pt}
+
+%%%%%%%%%%%%%%%%%%%%%%% TOPMATTER VARIABLES %%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\def\year#1{\gdef\@year{#1}}
+\def\faculty#1{\gdef\@faculty{#1}}
+\def\department#1{\gdef\@department{#1}}
+\def\ISBN#1{\gdef\@ISBN{#1}}
+\def\ISSN#1{\gdef\@ISSN{#1}}
+\def\thesisnum#1{\gdef\@thesisnum{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%% TITLE STYLES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\titleformat{\chapter}[hang]
+{\fontsize{19}{20}\selectfont\sffamily\bfseries}{\thechapter}{18pt}{}
+\titlespacing*{\chapter}{0pt}{-30pt}{15pt}
+
+\titleformat{\section}[hang]
+{\fontsize{13}{15}\selectfont\sffamily\itshape\bfseries}{\thesection}{10pt}{} 
+
+% To get header text for unnumbered chapters / custom titles
+\newcommand\invisiblechapter[1]{\chaptermark{#1}}
+
+% Remove chapter number from header text
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}} 
+
+% Insert unnumbered chapter file (e.g. preface, summary)
+\newcommand{\includePage}[2]{%
+\addcontentsline{toc}{chapter}{#2}
+\mainfont{\include{#1}}
+}
+
+% Insert chapter file
+\newcommand{\includeChapter}[1]{%
+\mainfont{\include{#1}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%% TABLE OF CONTENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Style
+\renewcommand{\contentsname}{Table of Contents} % Change title for TOC
+\renewcommand{\cfttoctitlefont}{\fontsize{15}{17}\normalfont\selectfont} % TOC main title
+\renewcommand{\cftchapfont}{\fontsize{11}{13}\normalfont} % TOC section titles
+\renewcommand{\cftchappagefont}{\fontsize{11}{13}\normalfont} % TOC page numbers
+\renewcommand{\cftchapleader}{\cftdotfill{0.5}} % Dot distance
+\cftsetpnumwidth{0.6em} % Distance between last dot and numbers
+\setcounter{tocdepth}{0} % TOC depth
+\setlength\cftbeforetoctitleskip{-20pt} % Vertical distance before TOC title
+\setlength\cftaftertoctitleskip{0pt} % Vertical distance from TOC title to first entry
+\renewcommand\cftchapafterpnum{\vskip-5pt} % Vertical space between TOC entries
+
+% Insert TOC
+\newcommand\listofappendices{\@starttoc{app}}
+\newcommand{\skipLeftPage}{\clearpage{\thispagestyle{plain}\cleardoublepage}}
+
+\newcommand\insertTOC{
+\skipLeftPage
+\tableofcontents
+
+\vspace{30pt}{\fontsize{15}{17}\normalfont Appendix}
+
+\listofappendices
+\skipLeftPage
+}
+
+% Insert TOC, Appendix
+\newcommand\insertTOCA{
+\skipLeftPage
+\@restonecoltrue\onecolumn
+\chapter*{Appendix
+\@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}}
+\invisiblechapter{Appendix}	
+\vspace{-15pt}         
+\@starttoc{app2}
+\skipLeftPage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%% HEADER AND FOOTER STYLE %%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\setPageStyles{
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{##1}}{}}
+\renewcommand{\headrulewidth}{0.1pt}% Header lines visible
+\fancyheadoffset[L]{0pt} % Header lines respect margins
+\fancyhead[C]{\fontsize{11}{13}\itshape\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+
+% Redefine the plain page style
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0.1pt}% Header lines visible
+  \fancyheadoffset[L]{0pt} % Header lines respect margins
+  \fancyhead[C]{\fontsize{11}{13}\itshape\nouppercase{\leftmark}}
+  \fancyfoot[C]{\thepage}
+}
+
+% Set page counter
+\pagenumbering{arabic}
+\setcounter{page}{1}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%% FONT AND COLOUR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\mainfont}[1]{{\fontsize{12}{15.5}\selectfont #1 \par}}
+
+\definecolor{URLblue}{RGB}{6,69,173} 
+\DeclareUrlCommand\ULurl{%
+  \renewcommand\UrlFont{\color{URLblue}}%
+  \renewcommand\UrlLeft{\uline\bgroup}%
+  \renewcommand\UrlRight{\egroup}}
+
+%%%%%%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+\newcommand\insertTitlePage{
+\begin{titlepage}
+\setcounter{page}{0}
+\pagenumbering{roman}
+\thispagestyle{empty}
+
+\begin{center}
+\vspace*{-22.8pt}
+{\fontsize{22}{25}\selectfont\@title \par}
+\vspace{49pt}
+by\\
+\vspace{25.6pt}
+{\fontsize{16}{18}\selectfont\@author \par}
+
+\vspace{44pt}
+
+{\fontsize{11}{14.5}\selectfont Thesis submitted in fulfilment of\\the requirements for the degree of\\PHILOSOPHIAE DOCTOR\\(PhD) \par}
+
+\vspace{14.3pt}
+\includegraphics[]{Fig/UiS_logo}
+\vspace{4.4pt}
+
+{\fontsize{11}{14.5}\selectfont \@faculty \\ \@department \\ \@year \par}
+
+\end{center}
+\end{titlepage}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%% COLOPHON %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+\newcommand\insertColophon{
+\newpage
+\thispagestyle{empty}
+\mainfont{University of Stavanger\\NO-4036 Stavanger\\ NORWAY}
+{\fontsize{12}{-1}\selectfont \ULurl{www.uis.no} \par}
+\vspace{4.5pt}
+\mainfont{\textcopyright \@year~\@author}
+\vspace{3.5pt}
+\mainfont{ ISBN: \@ISBN \\ ISSN: \@ISSN \\ PhD: Thesis UiS No. \@thesisnum}
+\newpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+\newcommand\displayReferences[1]{
+\skipLeftPage
+\bibliographystyle{chicago}
+\renewcommand\bibname{References}
+\addcontentsline{toc}{chapter}{References}
+\invisiblechapter{References}
+\bibliography{#1}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%% PAPERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+\newcommand\insertToPaperList[6]{
+\vspace{20pt}
+%{\fontsize{15}{17}\selectfont\sffamily\bfseries Paper #1\\}
+\section*{Paper #1}
+%\vspace{5pt}
+#2 #3. {\itshape #4}#5#6
+}
+
+
+\newcommand\addTOC[1]{%
+\addcontentsline{app}{chapter}{#1}
+\addcontentsline{app2}{chapter}{#1}}
+
+\newcommand\insertPaper[2]{
+\invisiblechapter{Paper #1}
+\vspace*{40pt}
+\begin{center}
+{\fontsize{28}{35}\selectfont\sffamily\bfseries Paper #1\\}
+\vspace{50pt}
+{\fontsize{25}{35}\selectfont\sffamily\bfseries #2}
+\addTOC{#2}
+\end{center}
+\skipLeftPage					
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% ©2020 Kjartan Kloster Osmundsen

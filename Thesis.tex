@@ -1,0 +1,85 @@
+\documentclass[12pt,a4paper,twoside,openright]{report}
+\usepackage{Thesis_template}
+
+\newcommand\PaperTitleOne{The First Paper}
+\newcommand\PaperTitleTwo{The Second Paper}
+\newcommand\PaperTitleThree{The Third Paper}
+\newcommand\PaperTitleFour{The Fourth Paper}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Very long and complicated\linebreak{}title that requires linebreak,\linebreak{}with economic applications}
+\author{Your Name}
+\year{2020}
+\faculty{Faculty of Science and Technology}
+\department{Department of Mathematics and Physics}
+
+\insertTitlePage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLOPHON %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ISBN{}
+\ISSN{}
+\thesisnum{}
+
+\insertColophon
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\fontdimen2\font=4pt % Inter word space
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PREFACE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\includePage{Preface}{Preface}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% ABSTRACT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\includePage{Abstract}{Abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% LIST OF PAPERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\includePage{Paper_list}{List of papers}
+
+%%%%%%%%%%%%%%%%%%%%%%% TABLE OF CONTENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\insertTOC
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% PAGE STYLES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setPageStyles
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% INTRODUCTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\includeChapter{Introduction}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\displayReferences{Thesis_bib}
+
+%%%%%%%%%%%%%%%%%% TABLE OF CONTENTS, APPENDIX %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\insertTOCA
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PAPER I %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\insertPaper{I}{\PaperTitleOne}
+\includepdf[pages=-,scale=0.74,offset=0mm 10mm,pagecommand={\thispagestyle{plain}}]{papers/Paper1.pdf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PAPER II %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\insertPaper{II}{\PaperTitleTwo}
+\includepdf[pages=-,scale=0.74,offset=0mm 10mm,pagecommand={\thispagestyle{plain}}]{papers/Paper2.pdf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PAPER III %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\insertPaper{III}{\PaperTitleThree}
+\includepdf[pages=-,scale=0.74,offset=0mm 10mm,pagecommand={\thispagestyle{plain}}]{papers/Paper3.pdf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PAPER IV %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\insertPaper{IV}{\PaperTitleFour}
+\includepdf[pages=-,scale=0.74,offset=0mm 10mm,pagecommand={\thispagestyle{plain}}]{papers/Paper4.pdf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
